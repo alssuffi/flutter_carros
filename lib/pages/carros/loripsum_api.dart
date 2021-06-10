@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 class LoripsumBloc {
@@ -19,19 +20,22 @@ class LoripsumBloc {
 
 class LoripsumApi {
   static Future<String> getLoripsum() async {
-    //var url = "https://loripsum.net/api";
-    var url = Uri.parse("https://loripsum.net/api");
+    /*
+    //var url = Uri.parse("https://loripsum.net/api");
+    var url = await Dio().get('https://loripsum.net/api');
 
     print("get > $url");
 
-    var response = await http.get(url);
+    //var response = await http.get(url);
 
-    String text = response.body.toString();
-    print(response.body);
+    var response = url; //await http.get(url);
+
+    String text = response.data.toString();
+    print(text);
 
     text = text.replaceAll("<p>", " ");
     text = text.replaceAll("</p>", "");
-
-    return text;
+  */
+    return "Rodrigo Carlos Alssuffi";
   }
 }

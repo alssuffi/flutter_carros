@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:carros/pages/carros/carro_page.dart';
 import 'package:carros/pages/carros/carros_bloc.dart';
 import 'package:carros/pages/text_error.dart';

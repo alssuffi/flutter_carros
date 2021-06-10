@@ -77,7 +77,7 @@ class _CarroPageState extends State<CarroPage> {
           children: [
             Text(
               widget.carros.nome,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
               widget.carros.tipo,
@@ -88,10 +88,10 @@ class _CarroPageState extends State<CarroPage> {
         Row(
           children: [
             IconButton(
-                icon: Icon(Icons.favorite, color: Colors.redAccent, size: 40),
+                icon: Icon(Icons.favorite, color: Colors.redAccent, size: 30),
                 onPressed: _onClickFavorito),
             IconButton(
-                icon: Icon(Icons.share, color: Colors.redAccent, size: 40),
+                icon: Icon(Icons.share, color: Colors.redAccent, size: 30),
                 onPressed: _onClickShare),
           ],
         ),
