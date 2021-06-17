@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:carros/api_response/api_response.dart';
 import 'package:carros/pages/login/usuario.dart';
-import 'package:carros/pages/simple_bloc.dart';
+import 'package:carros/util/api_response/api_response.dart';
+
 import 'package:flutter/material.dart';
 
 import 'login_api.dart';

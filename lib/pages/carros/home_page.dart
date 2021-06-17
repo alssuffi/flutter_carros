@@ -1,7 +1,10 @@
 import 'package:carros/pages/carros/carros_api.dart';
 import 'package:carros/pages/carros/carros_listview.dart';
+import 'package:carros/pages/carros/favorito/favoritos_listview.dart';
 import 'package:carros/pages/drawer_list.dart';
+import 'package:carros/util/alert.dart';
 import 'package:carros/util/prefs.dart';
+
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +23,7 @@ class _HomePageState extends State<HomePage>
   }
 
   _initTabe() async {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     int tabIdx = await Prefs.getInt("tabIdx");
     _tabController.index = tabIdx;
 
@@ -38,21 +41,45 @@ class _HomePageState extends State<HomePage>
         bottom: TabBar(
           controller: _tabController,
           tabs: [
-            Text("Classicos"),
-            Text("Esportivos"),
-            Text("Luxo"),
+            Tab(
+              text: "Classicos",
+              icon: Icon(Icons.directions_car),
+            ),
+            Tab(
+              text: "Esportivos",
+              icon: Icon(Icons.directions_car),
+            ),
+            Tab(
+              text: "Luxo",
+              icon: Icon(Icons.directions_car),
+            ),
+            Tab(
+              text: "Favoritos",
+              icon: Icon(Icons.favorite),
+            ),
           ],
         ),
       ),
-      drawer: DrawerList(),
       body: TabBarView(
         controller: _tabController,
         children: [
           CarrosListView(tipo: TipoCarro.classicos),
           CarrosListView(tipo: TipoCarro.esportivos),
           CarrosListView(tipo: TipoCarro.luxo),
+          FavoritosListView()
         ],
       ),
+      drawer: DrawerList(),
+      floatingActionButton: FloatingActionButton(
+          onPressed: _onClickAdicionarCarro,
+          child: Icon(
+            Icons.add,
+            size: 40,
+          )),
     );
+  }
+
+  void _onClickAdicionarCarro() {
+    alert(context, "adicionar carro");
   }
 }

@@ -1,33 +1,32 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/pages/carros/carro_page.dart';
-import 'package:carros/pages/carros/carros_bloc.dart';
 import 'package:carros/pages/text_error.dart';
 
 import 'package:carros/util/nav.dart';
 
 import 'package:flutter/material.dart';
 
-import 'carros.dart';
+import '../carros.dart';
+import 'favoritos_bloc.dart';
 
-class CarrosListView extends StatefulWidget {
-  String tipo;
-  CarrosListView({@required this.tipo});
-
+class FavoritosListView extends StatefulWidget {
   @override
-  _CarrosListViewState createState() => _CarrosListViewState();
+  _FavoritosListViewState createState() => _FavoritosListViewState();
 }
 
-class _CarrosListViewState extends State<CarrosListView>
-    with AutomaticKeepAliveClientMixin<CarrosListView> {
+class _FavoritosListViewState extends State<FavoritosListView>
+    with AutomaticKeepAliveClientMixin<FavoritosListView> {
   List<Carros> carros;
   //final _streamController = StreamController<List<Carros>>();
   @override
   bool get wantKeepAlive => true;
-  final _bloc = CarrosBloc();
+  final _bloc = FavoritosBloc();
   @override
   void initState() {
     super.initState();
-    _bloc.loadData(widget.tipo);
+    //_bloc.loadData(widget.tipo);
+    _bloc.loadData(null);
+    print("FavoritosListView");
   }
 
   @override

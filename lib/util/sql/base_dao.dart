@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:carros/pages/carros/carros.dart';
-import 'package:carros/pages/carros/db_helper.dart';
-import 'package:carros/pages/carros/entity.dart';
+import 'package:carros/util/sql/db_helper.dart';
+import 'package:carros/util/sql/entity.dart';
 import 'package:sqflite/sqflite.dart';
 
 // Data Access Object
@@ -15,27 +14,40 @@ abstract class BaseDAO<T extends Entity> {
 
   Future<int> save(T entity) async {
     var dbClient = await db;
+    print("tableName $tableName");
+    print("entity.toMap() ${entity.toMap()}");
     var id = await dbClient.insert(tableName, entity.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     print('id: $id');
     return id;
   }
 
-  Future<List<T>> findAll() async {
+  Future<List<T>> query(String sql, [List<Object> arguments]) async {
     final dbClient = await db;
 
-    final list = await dbClient.rawQuery('select * from $tableName');
+    final list = await dbClient.rawQuery(sql, arguments);
 
     return list.map<T>((json) => fromJson(json)).toList();
   }
 
+  Future<List<T>> findAll() {
+    //final dbClient = await db;
+
+    //final list = await dbClient.rawQuery('select * from $tableName');
+    return query('select * from $tableName');
+
+    // return list.map<T>((json) => fromJson(json)).toList();
+  }
+
   Future<T> findById(int id) async {
-    var dbClient = await db;
-    final list =
-        await dbClient.rawQuery('select * from $tableName where id = ?', [id]);
+    //var dbClient = await db;
+    //final list =
+    //    await dbClient.rawQuery('select * from $tableName where id = ?', [id]);
+
+    List<T> list = await query('select * from $tableName where id = ?', [id]);
 
     if (list.length > 0) {
-      return fromJson(list.first);
+      return list.first;
     }
 
     return null;
