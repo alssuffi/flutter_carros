@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carros/pages/carros/carro_form_page.dart';
 import 'package:carros/pages/carros/carros.dart';
 import 'package:carros/pages/carros/favorito/favorito_service.dart';
 import 'package:carros/pages/carros/loripsum_api.dart';
+import 'package:carros/util/nav.dart';
 
 import 'package:flutter/material.dart';
 
@@ -138,6 +140,11 @@ class _CarroPageState extends State<CarroPage> {
     switch (value) {
       case "Editar":
         print(value);
+        push(
+            context,
+            CarroFormPage(
+              carro: carro,
+            ));
         break;
       case "Excluir":
         print(value);

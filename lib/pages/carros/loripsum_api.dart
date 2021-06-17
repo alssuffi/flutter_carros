@@ -36,6 +36,6 @@ class LoripsumApi {
     text = text.replaceAll("<p>", " ");
     text = text.replaceAll("</p>", "");
   */
-    return "Rodrigo Carlos Alssuffi";
+    return "Rodrigo Carlos Alssuffi \n Texto Fixo";
   }
 }
