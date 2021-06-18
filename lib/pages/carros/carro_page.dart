@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/pages/carros/carro_form_page.dart';
 import 'package:carros/pages/carros/carros.dart';
+import 'package:carros/pages/carros/carros_api.dart';
 import 'package:carros/pages/carros/favorito/favorito_service.dart';
 import 'package:carros/pages/carros/loripsum_api.dart';
+import 'package:carros/util/alert.dart';
+import 'package:carros/util/api_response/api_response.dart';
 import 'package:carros/util/nav.dart';
 
 import 'package:flutter/material.dart';
@@ -70,7 +73,11 @@ class _CarroPageState extends State<CarroPage> {
       padding: EdgeInsets.all(16),
       child: ListView(
         children: [
-          CachedNetworkImage(imageUrl: widget.carros.urlFoto),
+          //CachedNetworkImage(imageUrl: widget.carros.urlFoto),
+          CachedNetworkImage(
+              imageUrl: widget.carros.urlFoto ??
+                  "https://cidadedamusica0.webnode.com/_files/200000043-38fd039f65/450/madonna-baixar-musica-download-gratis.jpg"),
+
           _bloco1(),
           Divider(
             color: Colors.redAccent,
@@ -148,6 +155,7 @@ class _CarroPageState extends State<CarroPage> {
         break;
       case "Excluir":
         print(value);
+        deletar();
         break;
       case "Compartilhar":
         print(value);
@@ -165,6 +173,18 @@ class _CarroPageState extends State<CarroPage> {
   }
 
   void _onClickShare() {}
+
+  void deletar() async {
+    ApiResponse<bool> response = await CarrosApi.delete(carro);
+
+    if (response.ok) {
+      alert(context, "Carro excluído com sucesso", callback: () {
+        Navigator.pop(context);
+      });
+    } else {
+      alert(context, response.msg);
+    }
+  }
 
   @override
   void dispose() {

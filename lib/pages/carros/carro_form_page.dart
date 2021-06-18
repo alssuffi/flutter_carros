@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/pages/carros/carros.dart';
+import 'package:carros/pages/carros/carros_api.dart';
+import 'package:carros/util/alert.dart';
+import 'package:carros/util/api_response/api_response.dart';
+import 'package:carros/widgets/app_button.dart';
 import 'package:carros/widgets/app_textfield.dart';
-import 'package:carros/widgets/text.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -88,47 +91,24 @@ class _CarroFormPageState extends State<CarroFormPage> {
           ),
           _radioTipo(),
           Divider(),
-          TextFormField(
+          AppTextField(
+            label: "Nome",
+            hint: "",
             controller: tNome,
             keyboardType: TextInputType.text,
             validator: _validateNome,
-            style: TextStyle(color: Colors.blue, fontSize: 20),
-            decoration: new InputDecoration(
-              hintText: '',
-              labelText: 'Nome',
-            ),
           ),
-          TextFormField(
+          AppTextField(
+            label: "Descrição",
+            hint: "",
             controller: tDesc,
             keyboardType: TextInputType.text,
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 20,
-            ),
-            decoration: new InputDecoration(
-              hintText: '',
-              labelText: 'Descrição',
-            ),
+            validator: _validateNome,
           ),
-          Container(
-            height: 50,
-            margin: new EdgeInsets.only(top: 20.0),
-            child: RaisedButton(
-              color: Colors.blue,
-              child: _showProgress
-                  ? CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    )
-                  : Text(
-                      "Salvar",
-                      style: new TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                      ),
-                    ),
-              onPressed: _onClickSalvar,
-            ),
-          )
+          AppButton(
+              text: "Salvar",
+              function: _onClickSalvar,
+              showProgress: _showProgress),
         ],
       ),
     );
@@ -226,6 +206,16 @@ class _CarroFormPageState extends State<CarroFormPage> {
     });
 
     print("Salvar o carro $c");
+
+    ApiResponse<bool> response = await CarrosApi.save(c);
+
+    if (response.ok) {
+      alert(context, "Carro salvo com sucesso", callback: () {
+        Navigator.pop(context);
+      });
+    } else {
+      alert(context, response.msg);
+    }
 
     await Future.delayed(Duration(seconds: 3));
 
