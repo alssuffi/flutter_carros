@@ -36,6 +36,7 @@ dependencies:
   sqflite: ^2.0.0+3
   connectivity: ^3.0.6
   cached_network_image: ^3.0.0
+  google_maps_flutter: ^2.0.6
 
 dev_dependencies:
   flutter_test:

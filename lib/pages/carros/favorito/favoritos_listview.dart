@@ -21,10 +21,11 @@ class _FavoritosListViewState extends State<FavoritosListView>
   @override
   bool get wantKeepAlive => true;
   final _bloc = FavoritosBloc();
+  final favoritosBloc = FavoritosBloc();
   @override
   void initState() {
     super.initState();
-    //_bloc.loadData(widget.tipo);
+    // _bloc.loadData(widget.tipo);
     _bloc.loadData(null);
     print("FavoritosListView");
   }

@@ -4,6 +4,7 @@ import 'package:carros/pages/carros/carros.dart';
 import 'package:carros/pages/carros/carros_api.dart';
 import 'package:carros/pages/carros/favorito/favorito_service.dart';
 import 'package:carros/pages/carros/loripsum_api.dart';
+import 'package:carros/pages/carros/mapa_page.dart';
 import 'package:carros/util/alert.dart';
 import 'package:carros/util/api_response/api_response.dart';
 import 'package:carros/util/nav.dart';
@@ -139,7 +140,11 @@ class _CarroPageState extends State<CarroPage> {
     );
   }
 
-  void _onClickMapa() {}
+  void _onClickMapa() {
+    if (carro.latitude != null && carro.longitude != null) {
+      push(context, MapaPage(carro));
+    }
+  }
 
   void _onClickVideo() {}
 
